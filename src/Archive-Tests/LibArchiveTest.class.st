@@ -108,16 +108,22 @@ LibArchiveTest >> writeArchive: aDirectory to: anOutput format: aFormat [
 			thenCollect: [ :child | child ].
 		entries := entries asSortedCollection: [ :a :b | a pathString <= b pathString ].
 		entries do: [ :child |
-			| entry |
+			| entry typeBits defaultPerms permBits |
 			entry := libArchive entry_new.
 			libArchive entry_set_pathnameArg1: entry arg2: (child relativeTo: aDirectory) pathString.
 			child isDirectory
 				ifTrue: [
-					libArchive entry_set_filetypeArg1: entry arg2: AE_IFDIR.
-					libArchive entry_set_sizeArg1: entry arg2: 0 ]
+					typeBits := AE_IFDIR.
+					defaultPerms := 8r755 ]
 				ifFalse: [
-					libArchive entry_set_filetypeArg1: entry arg2: AE_IFREG.
-					libArchive entry_set_sizeArg1: entry arg2: child size ].
+					typeBits := AE_IFREG.
+					defaultPerms := 8r644 ].
+			permBits := (child fileSystem isMemoryFileSystem)
+				ifTrue: [ defaultPerms ]
+				ifFalse: [ child permissions posixPermission ].
+			libArchive entry_set_modeArg1: entry arg2: (typeBits bitOr: permBits).
+			child isFile ifTrue: [
+				libArchive entry_set_sizeArg1: entry arg2: child size ].
 			libArchive write_headerArg1: archive arg2: entry.
 			child isFile ifTrue: [
 				libArchive
