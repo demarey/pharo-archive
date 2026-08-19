@@ -1255,7 +1255,7 @@ LibArchive >> libzstd_version [
 LibArchive >> macLibraryName [
 
 	^ FFIMacLibraryFinder new
-		userPaths: #('./CIG/lib');
+		userPaths: #('./CIG/lib' '/opt/homebrew/opt/libarchive/lib/');
 		findLibrary: 'libarchive.dylib'
 ]
 
