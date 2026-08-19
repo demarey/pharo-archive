@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : 'private - files' }
+LibArchiveTest >> extractionBaseDirectory [
+
+	^ FileLocator temp / ('archiveTest-', UUID new asString)
+]
+
+{ #category : 'private - files' }
 LibArchiveTest >> resourcesFolder [
 
 	^ FileSystem workingDirectory / 'resources'
@@ -25,27 +31,68 @@ LibArchiveTest >> sampleZip [
 	^ zip
 ]
 
+{ #category : 'private - extraction' }
+LibArchiveTest >> writeEntry: aPathname fromArchive: libArchive archive: archive into: aDirectory [
+
+	| target buffer bytes stream |
+	target := aDirectory / aPathname.
+	target parent ensureCreateDirectory.
+	buffer := ByteArray new: 65536.
+	stream := target binaryWriteStream.
+	[ (bytes := libArchive read_dataArg1: archive arg2: buffer size_t: buffer size) > 0 ]
+		whileTrue: [ stream nextPutAll: (buffer copyFrom: 1 to: bytes) ].
+	stream close
+]
+
 { #category : 'tests' }
 LibArchiveTest >> testListZipContents [
 
-	| arc archive entryHolder paths entry |
-	arc := LibArchive uniqueInstance.
-	archive := arc read_new.
+	| libArchive archive entryHolder paths entry |
+	libArchive := LibArchive uniqueInstance.
+	archive := libArchive read_new.
 	[ 
-		arc read_support_filter_all: archive.
-		arc read_support_format_all: archive.
-		arc
+		libArchive read_support_filter_all: archive.
+		libArchive read_support_format_all: archive.
+		libArchive
 			read_open_filenameArg1: archive
 			_filename: self sampleZip fullName
 			_block_size: 10240.
 		paths := OrderedCollection new.
 		entryHolder := ArchiveEntry newValueHolder.
-		[ (arc read_next_headerArg1: archive arg2: entryHolder) = ARCHIVE_OK ] whileTrue: [
+		[ (libArchive read_next_headerArg1: archive arg2: entryHolder) = ARCHIVE_OK ] whileTrue: [
 			entry := entryHolder value.
-			paths add: (arc entry_pathname: entry).
-			arc read_data_skip: archive ].
+			paths add: (libArchive entry_pathname: entry).
+			libArchive read_data_skip: archive ].
 		self assert: paths asArray equals: #('hello.txt' 'subdir/nested.txt' 'subdir/empty.bin') ]
-	ensure: [ arc read_free: archive ]
+	ensure: [ libArchive read_free: archive ]
+]
+
+{ #category : 'tests' }
+LibArchiveTest >> testExtractZipContents [
+
+	| libArchive archive entryHolder entry dir pathname |
+	libArchive := LibArchive uniqueInstance.
+	archive := libArchive read_new.
+	dir := self extractionBaseDirectory.
+	dir ensureCreateDirectory.
+	[ 
+		libArchive read_support_filter_all: archive.
+		libArchive read_support_format_all: archive.
+		libArchive
+			read_open_filenameArg1: archive
+			_filename: self sampleZip fullName
+			_block_size: 10240.
+		entryHolder := ArchiveEntry newValueHolder.
+		[ (libArchive read_next_headerArg1: archive arg2: entryHolder) = ARCHIVE_OK ] whileTrue: [
+			entry := entryHolder value.
+			pathname := libArchive entry_pathname: entry.
+			self writeEntry: pathname fromArchive: libArchive archive: archive into: dir ].
+		self assert: (dir / 'hello.txt') contents equals: 'Hello, libarchive!', String lf.
+		self assert: (dir / 'subdir/nested.txt') contents equals: 'nested content', String lf.
+		self assert: (dir / 'subdir/empty.bin') size equals: 0 ]
+	ensure: [
+		libArchive read_free: archive.
+		dir ensureDeleteAll ]
 ]
 
 { #category : 'tests' }
