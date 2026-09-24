@@ -17,6 +17,14 @@ LibArchiveTest >> extractionBaseDirectory [
 { #category : 'private - files' }
 LibArchiveTest >> resourcesFolder [
 
+	| archiveRepo resources |
+	archiveRepo := IceRepository registry
+		detect: [ :repo | repo name = 'pharo-archive' ]
+		ifNone: [ nil ].
+	archiveRepo ifNotNil: [
+		archiveRepo location ifNotNil: [ :location |
+			resources := location / 'resources'.
+			resources exists ifTrue: [ ^ resources ] ] ].
 	^ FileSystem workingDirectory / 'resources'
 ]
 
