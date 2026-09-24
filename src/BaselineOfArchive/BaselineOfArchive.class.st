@@ -10,7 +10,12 @@ BaselineOfArchive >> baseline: spec [
 	<baseline>
 	
 	spec for: #common do: [
-		spec package: 'Archive'.
-		spec package: 'Archive-Tests' with: [ spec requires: 'Archive' ].
-		spec group: 'Tests' with: #('Archive-Tests') ]
+		spec package: 'Archive-Bindings'.
+		spec package: 'Archive' with: [ spec requires: #('Archive-Bindings') ].
+		spec package: 'Archive-Bindings-Tests'
+			with: [ spec requires: #('Archive-Bindings') ].
+		spec package: 'Archive-Tests' with: [ spec requires: #('Archive') ].
+
+		spec group: 'default' with: #('Archive-Bindings' 'Archive').
+		spec group: 'Tests' with: #('Archive-Bindings-Tests' 'Archive-Tests') ]
 ]

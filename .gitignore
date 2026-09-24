@@ -1,0 +1,7 @@
+*.image
+*.changes
+*.sources
+*.log
+crash.dmp
+CIG/
+.DS_Store

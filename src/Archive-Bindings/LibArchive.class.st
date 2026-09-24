@@ -4,7 +4,7 @@ Bindings for [libarchive](https://www.libarchive.org/).
 Generated with:
 ```smalltalk
 CigCLibraryGenerator new
-	packageName: 'Archive';
+	packageName: 'Archive-Bindings';
 	prefix: 'Archive';
 	libraryName: 'archive';
 	import: 'archive.h';
@@ -31,7 +31,7 @@ Class {
 		'ArchiveTypedef'
 	],
 	#category : 'Archive-Library',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Library'
 }
 

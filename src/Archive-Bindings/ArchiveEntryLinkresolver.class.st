@@ -2,7 +2,7 @@ Class {
 	#name : 'ArchiveEntryLinkresolver',
 	#superclass : 'ArchiveBaseObject',
 	#category : 'Archive-Base',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Base'
 }
 

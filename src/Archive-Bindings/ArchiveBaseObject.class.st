@@ -7,7 +7,7 @@ Class {
 		'ArchiveTypedef'
 	],
 	#category : 'Archive-Base',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Base'
 }
 

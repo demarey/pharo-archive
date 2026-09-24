@@ -183,7 +183,7 @@ Class {
 		'__LA_TIME_T'
 	],
 	#category : 'Archive-Library',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Library'
 }
 

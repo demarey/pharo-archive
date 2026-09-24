@@ -4,8 +4,8 @@ Class {
 	#pools : [
 		'ArchiveConstants'
 	],
-	#category : 'Archive-Tests',
-	#package : 'Archive-Tests'
+	#category : 'Archive-Bindings-Tests',
+	#package : 'Archive-Bindings-Tests'
 }
 
 { #category : 'private - files' }

@@ -37,7 +37,7 @@ Class {
 		'uintptr_t'
 	],
 	#category : 'Archive-Library',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Library'
 }
 

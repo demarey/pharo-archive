@@ -1,7 +1,7 @@
 Trait {
 	#name : 'LibTArchive',
 	#category : 'Archive-Library',
-	#package : 'Archive',
+	#package : 'Archive-Bindings',
 	#tag : 'Library'
 }
 
