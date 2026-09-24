@@ -16,6 +16,7 @@ BaselineOfArchive >> baseline: spec [
 			with: [ spec requires: #('Archive-Bindings') ].
 		spec package: 'Archive-Tests' with: [ spec requires: #('Archive') ].
 
-		spec group: 'default' with: #('Archive-Bindings' 'Archive').
-		spec group: 'Tests' with: #('Archive-Bindings-Tests' 'Archive-Tests') ]
+		spec group: 'core' with: #('Archive-Bindings' 'Archive').
+		spec group: 'default' with: #('core' 'Archive-Bindings-Tests' 'Archive-Tests') ]
+
 ]

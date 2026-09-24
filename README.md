@@ -52,13 +52,13 @@ Metacello new
 ```
 
 This loads the whole project including tests (the `default` group). To load only the core
-(bindings + high-level API):
+(bindings + high-level API) use the `core` group:
 
 ```smalltalk
 Metacello new
 	baseline: 'Archive';
 	repository: 'github://pharo-cig/pharo-archive:main/src';
-	load: #Archive.
+	load: #core.
 ```
 
 ## Quick start
