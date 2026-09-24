@@ -26,8 +26,8 @@ Class {
 		'expectedPayloadSizeInBytes',
 		'performanceRatioLimit'
 	],
-	#category : 'Archive-PerformanceTests',
-	#package : 'Archive-PerformanceTests'
+	#category : 'Archive-Performance-Tests',
+	#package : 'Archive-Performance-Tests'
 }
 
 { #category : 'config' }

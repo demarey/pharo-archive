@@ -100,3 +100,4 @@ jobs:
           export PATH="${GITHUB_WORKSPACE}/CIG/lib${PATH:+:$PATH}"
           $PHARO --headless Pharo.image test Archive-Tests --fail-on-failure
           $PHARO --headless Pharo.image test Archive-Bindings-Tests --fail-on-failure
+          $PHARO --headless Pharo.image test Archive-Performance-Tests --fail-on-failure
