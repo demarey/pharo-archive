@@ -92,8 +92,7 @@ jobs:
         run: |
           export PATH="${GITHUB_WORKSPACE}/CIG/lib${PATH:+:$PATH}"
           $PHARO --headless Pharo.image metacello \
-            install "gitlocal:///${GITHUB_WORKSPACE}/src" Archive \
-            --save
+            install "gitlocal:///${GITHUB_WORKSPACE}/src" Archive
 
       - name: Run tests
         working-directory: ${{ github.workspace }}
