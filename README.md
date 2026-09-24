@@ -18,6 +18,7 @@ A library to work with [libarchive](https://libarchive.org) from [Pharo](https:/
 | --- | --- | --- |
 | [`Archive`](src/Archive/) | hand-written | High-level, idiomatic Pharo API (`LAArchive`, `LAArchiveReader`, `LAArchiveWriter`, `LAArchiveMember`, `LAArchiveFormat`, `LAArchiveError`, ...) built on the generated bindings. |
 | [`Archive-Tests`](src/Archive-Tests/) | hand-written | Tests for the hand-written `Archive` package. |
+| [`Archive-PerformanceTests`](src/Archive-PerformanceTests/) | hand-written | Performance benchmarks (`LAArchivePerformanceTest`), not loaded by default — run via the `Performance` group. |
 | [`Archive-Bindings`](src/Archive-Bindings/) | **generated** | Low-level FFI bindings produced by **pharo-cig**. **Do not hand-edit** — regenerate instead. |
 | [`Archive-Bindings-Tests`](src/Archive-Bindings-Tests/) | **generated** | Tests for the generated bindings. |
 
